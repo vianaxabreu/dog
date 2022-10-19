@@ -35,7 +35,7 @@ def voting(conn_, my_vote_=4):
     db = conn_.cursor()
     db.execute(sql_insert, (my_vote_,))
     conn_.commit()
-    return 'Thank you for voting'
+    return 'Danke, dass Du mir bei der Namenswahl geholfen hast'
 
 def get_statistics(conn_):
 
@@ -59,13 +59,13 @@ def get_statistics(conn_):
 
 
 st.set_page_config(
-    page_title="I am a dog",  # => Quick reference - Streamlit
+    page_title="Ich bin ein Hund",  # => Quick reference - Streamlit
     page_icon="🐶",
     #layout="wide",  # wide
     #initial_sidebar_state="auto")
 )
 names = ['Kojak', 'Baleia', 'Blake', 'Birita', 'Sansa', 'Pickles']
-st.markdown("<h1 style='text-align: center; color: black;'>Hi, I am...</h1>",
+st.markdown("<h1 style='text-align: center; color: black;'>Halli Hallo, Ich bin...</h1>",
             unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
