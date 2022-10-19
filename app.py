@@ -34,7 +34,7 @@ def voting(conn_, my_vote_=4):
     """
     db = conn_.cursor()
     db.execute(sql_insert, (my_vote_,))
-    conn.commit()
+    conn_.commit()
     return 'Thank you for voting'
 
 def get_statistics(conn_):
@@ -50,8 +50,11 @@ def get_statistics(conn_):
     #db.execute(query)
     df_result = pd.read_sql(query,conn_)
     fig = plt.figure(figsize=(10, 6))
-    sns.barplot(data=df_result, x="name", y="total")
+    if df_result.shape[0] >= 1:
 
+        sns.barplot(data=df_result, x="name", y="total")
+        return fig
+    st.write("no votes")
     return fig
 
 
@@ -66,18 +69,20 @@ st.markdown("<h1 style='text-align: center; color: black;'>Hi, I am...</h1>",
             unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
-conn = create_connection()
+
 with col1:
     st.image('./dog.png')
 with col2:
     my_vote = st.radio('', names)
     if st.button('vote'):
+        conn = create_connection()
         if conn:
             id_name = get_id_name(conn, my_vote)
             if id_name:
                 st.write(voting(conn,id_name))
             else:
                 st.write('Error while getting your vote')
+            conn.close()
         else:
             st.write('data base unavailable')
 #with col3:
@@ -86,6 +91,7 @@ col1, col2, col3 = st.columns(3)
 with col2:
     show_chart = False
     if st.button('result until now'):
+        conn = create_connection()
         if conn:
             show_chart = True
         #st.dataframe(get_statistics(conn))
@@ -93,3 +99,4 @@ with col2:
             st.write('result not available')
 if show_chart:
     st.pyplot(get_statistics(conn))
+    conn.close()
