@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 def create_connection(db_file='./db_dog'):
     conn_ = None
-    # try:
-    #     conn_ = sqlite3.connect(db_file)
-    # except:
-    #     print('db unavailable')
+    try:
+        conn_ = sqlite3.connect(db_file)
+    except:
+        print('db unavailable')
 
     return conn_
 
