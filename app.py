@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 def create_connection(db_file='./db_dog'):
     conn_ = None
-    try:
-        conn_ = sqlite3.connect(db_file)
-    except:
-        print('db unavailable')
+    # try:
+    #     conn_ = sqlite3.connect(db_file)
+    # except:
+    #     print('db unavailable')
 
     return conn_
 
@@ -65,8 +65,8 @@ names = ['Kojak', 'Baleia', 'Blake', 'Birita', 'Sansa', 'Pickles']
 st.markdown("<h1 style='text-align: center; color: black;'>Hi, I am...</h1>",
             unsafe_allow_html=True)
 col1, col2 = st.columns(2)
-conn = create_connection()
 
+conn = create_connection()
 with col1:
     st.image('./dog.png')
 with col2:
